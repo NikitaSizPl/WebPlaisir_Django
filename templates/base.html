@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/categories.css' %}">
+    <link rel="stylesheet" href="{% static 'css/categories_slug.css' %}">
+    <link rel="stylesheet" href="{% static 'css/item_id.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<header>
+    <div class="navbar">
+<!--        <img src="{% static 'media/logo_done.png' %}" width="170" height="90">-->
+        <ul class="nav-links">
+                <li><a href="/">STRONA GLÓWNA</a></li>
+                <li><a href="{% url 'products:categories' %}">KATALOG</a></li>
+                <li><a href="/delivery">DOSTAWA</a></li>
+                <li><a href="/infopay">PLATNOŚĆ</a></li>
+                <li><a href="/contact">KONTAKT</a></li>
+        </ul>
+        <div class="cart">
+            <a href="{% url 'user:login' %}" class="cart-icon">
+                <img width="30" height="30" src="{% static 'media/profil.png' %}" alt="Профиль">
+            </a>
+            <a href="{% url 'basket:basket' %}" class="cart-icon">
+                <img width="30" height="30" src="{% static 'media/basket.png' %}" alt="Корзина">
+            </a>
+        </div>
+    </div>
+
+</header>
+<body>
+{% block content %}
+
+{% endblock %}
+</body>
+</html>
