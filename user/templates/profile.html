@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Profile user
+{% endblock %}
+
+
+{% block content %}
+{% csrf_token %}
+{% if user.is_authenticated %}
+
+<div class="container-profile">
+    <h3>Профиль</h3>
+    <div class="container-user">
+        <div class="container-info">
+            <p>Имя пользователя: {{ user.username }}</p>
+            <p>instagram: {{ user.instagram }}</p>
+            <p>Телефон: {{user.phone}}</p>
+            <div>
+            <a class="btn-logout" href="{% url 'user:logout' %}">Выйти из аккаунта</a>
+            </div>
+        </div>
+        <div class="container-order">
+            <h3>Заказы:</h3>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container-login">
+    <div class="container-form">
+        <h2 class="text">Авторизация</h2>
+            <form action="{% url 'user:login' %}" method="POST">
+            {% csrf_token %}
+                <div class="forms">{{form.as_p}}</div>
+                <button type="submit">Авторизоваться</button>
+                <a class="btn-register" href="{% url 'user:register' %}">Зарегистрироваться</a>
+            </form>
+
+    </div>
+</div>
+{% endif %}
+
+
+
+
+{% endblock %}
