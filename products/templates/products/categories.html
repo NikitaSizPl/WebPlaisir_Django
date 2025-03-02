@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Plaisir
+{% endblock%}
+
+{% block content %}
+
+<div class="block-content">
+    <div class="base">
+        <div class="contener-base">
+            {% for item_cat in categor %}
+            <div class="contener-item">
+                <div class="contener-images">
+                    <a href="{% url 'products:items_categor' item_cat.name %}">
+                        {% if  item_cat.image %}
+                        <img src="{{item_cat.image.url}}" alt="My image" width="200" height="150">
+                        {% else %}
+                        <img src="{% static 'media/no_images.png' %}" alt="My image" width="200" height="150">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="contener-info-cat" style="text-align: center">
+                    <h3><a href="{% url 'products:items_categor' item_cat.name %}">{{ item_cat.name|capfirst }}</a></h3>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
