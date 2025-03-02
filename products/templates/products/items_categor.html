@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+{{cat|capfirst}}
+{% endblock %}
+
+
+{% block content %}
+<div class="block-content">
+    <div class="base">
+        <div class="contener-base">
+            {% for product in products %}
+            <div class="contener-item">
+                <div class="contener-images">
+                    <a href="{% url 'products:item_id' product.id %}" class="image">
+                        {% if product.image%}
+                        <img src="{{product.image.url}}" alt="My image" width="200" height="150">
+                        {% else %}
+                        <img src="{% static 'media/no_images.png' %}" alt="My image" width="200" height="150">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="contener-info-item" style="text-align: center">
+                    <h3><a href="{% url 'products:item_id' product.id %}">{{ product|capfirst }}</a></h3>
+                </div>
+             </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

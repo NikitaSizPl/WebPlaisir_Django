@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Plaisir
+{% endblock%}
+
+{% block content %}
+<div class="block-content">
+    <div class="base">
+        <h2>Круассанты</h2>
+            <div class="contener-base">
+            {% for product in сroissants_all %}
+                <div class="contener-item">
+                    <div class="contener-images">
+                        <a href="{% url 'products:item_id' product.id %}">
+                            {% if product.image %}
+                            <img src="{{product.image.url}}" alt="My image" width="200" height="150">
+                            {% else %}
+                            <img src="{% static 'media/no_images.png' %}" alt="My image" width="200" height="150">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="contener-info">
+                        <a href="{% url 'products:item_id' product.id %}">{{ product.name|capfirst }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+    </div>
+    <div class="base">
+        <h2>Макароны</h2>
+            <div class="contener-base">
+            {% for product in macarons_all %}
+                <div class="contener-item">
+                    <div class="contener-images">
+                        <a href="{% url 'products:item_id' product.id %}">
+                            {% if product.image%}
+                            <img src="{{product.image.url}}" alt="My image" width="200" height="150">
+                            {% else %}
+                            <img src="{% static 'media/no_images.png' %}" alt="My image" width="200" height="150">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="contener-info">
+                        <a href="{% url 'products:item_id' product.id %}">{{ product.name|capfirst }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+    </div>
+    <div class="base">
+        <h2>Торты</h2>
+            <div class="contener-base">
+            {% for product in tort_all %}
+                <div class="contener-item">
+                    <div class="contener-images">
+                        <a href="{% url 'products:item_id' product.id %}">
+                            {% if product.image%}
+                            <img src="{{product.image.url}}" alt="My image" width="200" height="150">
+                            {% else %}
+                            <img src="{% static 'media/no_images.png' %}" alt="My image" width="200" height="150">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="contener-info">
+                        <a href="{% url 'products:item_id' product.id %}">{{ product.name|capfirst }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+    </div>
+</div>
+{% endblock %}
