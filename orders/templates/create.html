@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block title %}
+Orders
+{% endblock %}
+
+
+
+{% block content %}
+<div class="contener-form">
+    <h1>Orders</h1>
+    <div class="">
+        <form action="{% url 'orders:create' %}" method="POST">
+            {% csrf_token %}
+                <div class="forms">{{form.as_p}}</div>
+                <button type="submit">Оформить</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
