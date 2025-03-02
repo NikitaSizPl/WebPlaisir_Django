@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/basket.css' %}">
+{% endblock %}
+
+{% block title %}
+Basket
+{% endblock%}
+
+{% block content %}
+<h1>Корзина</h1>
+
+<div class="basket-contener">
+    {% if basket_item %}
+    {% for item in basket_item %}
+    <!--  База продукта  -->
+        <div class="product-contener">
+    <!--    Картинка    -->
+            <div class="image-product">
+                <a href="{% url 'products:item_id' item.product.id %}">
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" width="200" height="150">
+                    {% else %}
+                    <img src="{% static 'media/no_images.png' %}" width="200" height="150">
+                    {% endif %}
+                </a>
+            </div>
+    <!--    Информация продукта    -->
+            <div class="product-info">
+                <p>{{item.product.categories.name | upper}}</p>
+                <p>{{item.product.name}}</p>
+                <span>{{item.product.description}}</span>
+            </div>
+    <!--    Информация кол-ва продукта    -->
+            <div class="product-quantity">
+                {% if item.product.categories.name == 'torty' %}
+                <p>Вес</p>
+                {% else %}
+                <p>Количество</p>
+                {% endif %}
+<!--            Модуль кол-во продукта    -->
+                <div class="quantity">
+                    {% csrf_token %}
+                    <input type="button" class="btn minus" value="-" data-basket-item-id="{{ item.id }}">
+                    <input type="number" class="quantity-input" data-basket-item-id="{{ item.id }}" value="{{item.quantity}}" readonly>
+                    <input type="button" class="btn plus" value="+" data-basket-item-id="{{ item.id }}">
+                </div>
+            </div>
+    <!--    Общая цена продукта    -->
+            <div class="price-info">
+                <p class="basket-item-total-price" data-basket-item-id="{{ item.id }}">{{item.total_price}}</p>
+            </div>
+            <div class="icon-trash">
+                <a href="{% url 'basket:del_from_basket' item.product.id %}"><img src="{% static 'media/icons8-trash-128.png' %}" width="32" height="32"></a>
+            </div>
+        </div>
+        {% endfor %}
+
+    <!--    ИТОГОВАЯ ЦЕНА    -->
+        <div id="basket-total-price" data-basket-id="{{ basket.id }}">Общая сумма: {{basket.total_price}}</div>
+    <!--    Кнопки        -->
+        <div class="button-contener">
+            <a href="{% url 'orders:create' %}" class="button order">Оформить заказ</a>
+            <br>
+            <a href="{% url 'products:categories' %}" class="button continue" style="background-color: #e9ad1f">Продолжить покупки</a>
+            <br>
+            <a href="{% url 'basket:del_all' %}" class="button clear">Очистить корзину</a>
+        </div>
+
+{% else %}
+<h3>Корзина пуста.</h3>
+{% endif%}
+</div>
+
+{% block js %}
+    <script src="{% static 'javascript/ajax.js' %}"></script>
+{% endblock %}
+
+{% endblock %}
